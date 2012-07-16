@@ -220,9 +220,9 @@ span.pinterest-button:hover .pin-it {
       $body = preg_replace( $pattern, $replacement, $body );
 
       //Fix the link problem
-      //$newpattern = '/<a(.*?)><span class="pinterest-button"><a(.*?)><\/a><img(.*?)\/><\/span><\/a>/i';
-      //$replacement = '<span class="pinterest-button"><a$2></a><a$1><img$3\/></a></span>';
-      //$body = preg_replace( $newpattern, $replacement, $body );
+      $newpattern = '/<a(.*?)><span class="pinterest-button"><a(.*?)><\/a>(<!-- s9ymdb:\d+ -->)\s*<img(.*?)\/><\/span><\/a>/i';
+      $replacement = '<span class="pinterest-button"><a$2></a><a$1>$3<img$4\/></a></span>';
+      $body = preg_replace( $newpattern, $replacement, $body );
       
       // return munged text
       return $body;
