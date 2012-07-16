@@ -41,7 +41,7 @@ class serendipity_event_pinit extends serendipity_event
         $propbag->add('requirements', array(
             'serendipity' => '1.5.0',
             'smarty'      => '2.6.7',
-            'php'         => '5.2.0'
+            'php'         => '5.1.0'
         ));
 
       // make it cacheable
@@ -173,9 +173,9 @@ class serendipity_event_pinit extends serendipity_event
      *	munge text and insert pinit tags
 		 */
     function s9y_pinit_munge($body, $title, $id, $ts) {
-  		global $serendipity;
+      global $serendipity;
   		
-  		$posturl = urlencode($serendipity['baseURL'] . serendipity_archiveURL($id, $title, 'serendipityHTTPPath', true, array('timestamp' => $ts)));
+      $posturl = urlencode($serendipity['baseURL'] . serendipity_archiveURL($id, $title, 'serendipityHTTPPath', true, array('timestamp' => $ts)));
       $pinspan = '<span class="pinterest-button">';
       $pinurl = '<a href="http://pinterest.com/pin/create/button/?url='.$posturl.'&media=';
       $pindescription = '&description=' . urlencode($title);
