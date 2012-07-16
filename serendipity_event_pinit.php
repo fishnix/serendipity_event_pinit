@@ -50,7 +50,8 @@ class serendipity_event_pinit extends serendipity_event
         ));
             
       $propbag->add('event_hooks',   array(
-          'frontend_display' => true
+          'frontend_display'  => true,
+          'css'               => true,
         ));
 
       $this->markup_elements = array(
@@ -76,6 +77,7 @@ class serendipity_event_pinit extends serendipity_event
 
         $conf_array[] = 'using_pinit';
         $conf_array[] = 'pinit_account_id';
+        $conf_array[] = 'pinit_icon_path';
 
         $propbag->add('configuration', $conf_array);
     }
@@ -95,6 +97,12 @@ class serendipity_event_pinit extends serendipity_event
         case 'pinit_account_id':
           $propbag->add('name',           PLUGIN_EVENT_PINIT_PROP_ACCOUNT);
           $propbag->add('description',    PLUGIN_EVENT_PINIT_PROP_ACCOUNT_DESC);
+          $propbag->add('default',        '');
+          $propbag->add('type',           'string');
+        break;
+        case 'pinit_icon_path':
+          $propbag->add('name',           PLUGIN_EVENT_PINIT_PROP_ICON_PATH);
+          $propbag->add('description',    PLUGIN_EVENT_PINIT_PROP_ICON_PATH_DESC);
           $propbag->add('default',        '');
           $propbag->add('type',           'string');
         break;
@@ -142,19 +150,45 @@ class serendipity_event_pinit extends serendipity_event
         
       if (isset($hooks[$event])) {
         switch($event) {
+          case 'css':
+            if (strpos($eventData, '.pinterest-button')) {
+              // class exists in CSS, so a user has customized it and we don't need default
+              return true;
+            }
+?>
+span.pinterest-button {
+    position:relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin: 0;
+}
+
+.pin-it {
+    display:block;
+    background:url('<?php echo $this->get_config('pinit_icon_path'); ?>');
+    width: 60px;
+    height:60px;
+    z-index:10;
+    bottom: 25px;
+    left: 25px;
+    position:absolute;
+}
+span.pinterest-button .pin-it {
+    display:none;
+}
+span.pinterest-button:hover .pin-it {
+    display:block;
+}
+<?php
+            break;
           case 'frontend_display':           
             // only burn cycles if enabled...
             if ($this->get_config('using_pinit')) {
               foreach ($this->markup_elements as $temp) {
                 if (serendipity_db_bool($this->get_config($temp['name'], true)) && isset($eventData[$temp['element']])) {
                   $element = $temp['element'];
-                                    
-                  //$text = "";
-                  //foreach ($eventData as $i => $value) {
-                  //    $text = $text. $i.':'.$value.'<br />';
-                  //}
 
-                  //$eventData[$element] = 'Stuff: ' . $text;
                   $eventData[$element] =  $this->s9y_pinit_munge($eventData[$element], $eventData['title'], $eventData['id'], $eventData['timestamp']);
                 }
               }

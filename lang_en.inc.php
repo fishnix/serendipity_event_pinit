@@ -12,5 +12,7 @@
 @define('PLUGIN_EVENT_PINIT_PROP_PINIT_ON_DESC',  'Enable adding pinit tags to each image in your post.' );
 @define('PLUGIN_EVENT_PINIT_PROP_ACCOUNT',        'Pinterest Account ID.' );
 @define('PLUGIN_EVENT_PINIT_PROP_ACCOUNT_DESC',   'Pinterest Account ID.' );
+@define('PLUGIN_EVENT_PINIT_PROP_ICON_PATH',      'Icon Path');
+@define('PLUGIN_EVENT_PINIT_PROP_ICON_PATH_DESC', 'Path to the pinit icon.');
 @define('PLUGIN_EVENT_PINIT_INSTALL',             '<center><p><strong>Experimental Plugin, use at your own risk!</strong></p></center>');
 ?>
