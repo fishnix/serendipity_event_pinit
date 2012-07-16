@@ -175,7 +175,7 @@ class serendipity_event_pinit extends serendipity_event
     function s9y_pinit_munge($body, $title, $id, $ts) {
   		global $serendipity;
   		
-  		$posturl = $serendipity['baseURL'] . serendipity_archiveURL($id, $title, 'serendipityHTTPPath', true, array('timestamp' => $ts));
+  		$posturl = urlencode($serendipity['baseURL'] . serendipity_archiveURL($id, $title, 'serendipityHTTPPath', true, array('timestamp' => $ts)));
       $pinspan = '<span class="pinterest-button">';
       $pinurl = '<a href="http://pinterest.com/pin/create/button/?url='.$posturl.'&media=';
       $pindescription = '&description=' . urlencode($title);
