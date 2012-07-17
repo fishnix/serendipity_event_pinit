@@ -158,7 +158,6 @@ class serendipity_event_pinit extends serendipity_event
 ?>
 span.pinterest-button {
     position:relative;
-    width: 100%;
     float: left;
     clear: both;
     margin: 0;
